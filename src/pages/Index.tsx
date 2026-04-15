@@ -30,7 +30,7 @@ const Index = () => {
 
       {/* Hero */}
       <section className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] px-6 text-center">
-        <div className="gold-glow rounded-full p-1 mb-8">
+        <div className="gold-glow rounded-full p-1 mb-8 bg-background">
           <img src={logoAura} alt="Aura Auditoria" className="w-32 h-32 md:w-40 md:h-40 object-contain" />
         </div>
         <h1 className="text-4xl md:text-5xl font-bold gold-gradient-text mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
