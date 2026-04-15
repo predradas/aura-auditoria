@@ -15,7 +15,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src={logoAura} alt="Aura Logo" className="w-10 h-10 object-contain" />
-            <span className="text-xl font-semibold gold-gradient-text" style={{ fontFamily: "Helvetica, Arial, sans-serif" }}>
+            <span className="text-xl font-semibold gold-gradient-text" style={{ fontFamily: "'Playfair Display', serif" }}>
               AURA
             </span>
           </div>
@@ -33,7 +33,7 @@ const Index = () => {
         <div className="gold-glow rounded-full p-1 mb-8">
           <img src={logoAura} alt="Aura Auditoria" className="w-32 h-32 md:w-40 md:h-40 object-contain" />
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold gold-gradient-text mb-6 leading-tight" style={{ fontFamily: "Helvetica, Arial, sans-serif" }}>
+        <h1 className="text-4xl md:text-5xl font-bold gold-gradient-text mb-6 leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
           AURA
         </h1>
         <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-2" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
