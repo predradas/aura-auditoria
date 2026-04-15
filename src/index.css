@@ -90,3 +90,12 @@
 .gold-glow {
   box-shadow: 0 0 40px hsla(43, 80%, 55%, 0.15), 0 0 80px hsla(43, 80%, 55%, 0.05);
 }
+
+.hero-pattern {
+  background-image: 
+    linear-gradient(hsla(43, 80%, 55%, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(43, 80%, 55%, 0.03) 1px, transparent 1px),
+    linear-gradient(hsla(43, 80%, 55%, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(43, 80%, 55%, 0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+}
