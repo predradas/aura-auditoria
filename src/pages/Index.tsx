@@ -15,7 +15,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src={logoAura} alt="Aura Logo" className="w-10 h-10 object-contain" />
-            <span className="text-2xl font-semibold gold-gradient-text" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
+            <span className="text-xl font-semibold gold-gradient-text" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
               AURA
             </span>
           </div>
@@ -33,10 +33,10 @@ const Index = () => {
         <div className="gold-glow rounded-full p-1 mb-8">
           <img src={logoAura} alt="Aura Auditoria" className="w-32 h-32 md:w-40 md:h-40 object-contain" />
         </div>
-        <h1 className="text-5xl md:text-7xl font-bold gold-gradient-text mb-6 leading-tight">
+        <h1 className="text-4xl md:text-5xl font-bold gold-gradient-text mb-6 leading-tight">
           AURA
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-2" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
+        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mb-2" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
           Auditoria & Consultoria
         </p>
         <p className="text-sm md:text-base text-muted-foreground/70 max-w-xl mb-12">
@@ -55,9 +55,9 @@ const Index = () => {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Scale className="w-6 h-6 text-primary" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold gold-gradient-text">Missão</h2>
+              <h2 className="text-2xl md:text-3xl font-bold gold-gradient-text">Missão</h2>
             </div>
-            <p className="text-foreground/80 text-lg leading-relaxed">
+            <p className="text-foreground/80 text-base leading-relaxed">
               Oferecer serviços de auditoria e consultoria de excelência, promovendo a transparência 
               e a conformidade das organizações. Atuamos com rigor técnico e ético, garantindo que 
               nossos clientes possam tomar decisões seguras e fundamentadas, fortalecendo a confiança 
@@ -75,9 +75,9 @@ const Index = () => {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Eye className="w-6 h-6 text-primary" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold gold-gradient-text">Visão</h2>
+              <h2 className="text-2xl md:text-3xl font-bold gold-gradient-text">Visão</h2>
             </div>
-            <p className="text-foreground/80 text-lg leading-relaxed">
+            <p className="text-foreground/80 text-base leading-relaxed">
               Ser reconhecida como referência nacional em auditoria independente, destacando-nos pela 
               inovação, qualidade e compromisso com a verdade. Buscamos ser a primeira escolha de 
               empresas que valorizam a governança corporativa e a prestação de contas transparente, 
@@ -95,7 +95,7 @@ const Index = () => {
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Heart className="w-6 h-6 text-primary" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold gold-gradient-text">Valores</h2>
+              <h2 className="text-2xl md:text-3xl font-bold gold-gradient-text">Valores</h2>
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -108,7 +108,7 @@ const Index = () => {
               { title: "Confidencialidade", desc: "Protegemos as informações dos nossos clientes com os mais altos padrões de segurança e sigilo." },
             ].map((valor, i) => (
               <div key={i} className="glass-gold rounded-xl p-6 hover:scale-[1.02] transition-transform duration-300">
-                <h3 className="text-xl font-semibold text-primary mb-3" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
+                <h3 className="text-lg font-semibold text-primary mb-3" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
                   {valor.title}
                 </h3>
                 <p className="text-foreground/70 text-sm leading-relaxed">{valor.desc}</p>
@@ -121,7 +121,7 @@ const Index = () => {
       {/* Clientes / CTA */}
       <section id="contato" className="relative z-10 py-24 px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold gold-gradient-text mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold gold-gradient-text mb-6">
             Pronto para elevar sua governança?
           </h2>
           <p className="text-muted-foreground mb-10">
