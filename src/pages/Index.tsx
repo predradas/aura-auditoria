@@ -15,7 +15,7 @@ const Index = () => {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img src={logoAura} alt="Aura Logo" className="w-10 h-10 object-contain" />
-            <span className="text-2xl font-semibold gold-gradient-text" style={{ fontFamily: "'Playfair Display', serif" }}>
+            <span className="text-2xl font-semibold gold-gradient-text" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
               AURA
             </span>
           </div>
@@ -36,7 +36,7 @@ const Index = () => {
         <h1 className="text-5xl md:text-7xl font-bold gold-gradient-text mb-6 leading-tight">
           AURA
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-2" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
           Auditoria & Consultoria
         </p>
         <p className="text-sm md:text-base text-muted-foreground/70 max-w-xl mb-12">
@@ -108,7 +108,7 @@ const Index = () => {
               { title: "Confidencialidade", desc: "Protegemos as informações dos nossos clientes com os mais altos padrões de segurança e sigilo." },
             ].map((valor, i) => (
               <div key={i} className="glass-gold rounded-xl p-6 hover:scale-[1.02] transition-transform duration-300">
-                <h3 className="text-xl font-semibold text-primary mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <h3 className="text-xl font-semibold text-primary mb-3" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>
                   {valor.title}
                 </h3>
                 <p className="text-foreground/70 text-sm leading-relaxed">{valor.desc}</p>
