@@ -137,7 +137,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-border/50 py-8 px-6">
+      <footer className="relative z-10 border-t border-border/50 py-8 px-6 bg-background">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <img src={logoAura} alt="Aura" className="w-6 h-6 object-contain" />
