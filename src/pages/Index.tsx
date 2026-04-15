@@ -3,7 +3,7 @@ import { Scale, Eye, Heart, ChevronDown } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden hero-pattern">
       {/* Background decorative elements */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px]" />
