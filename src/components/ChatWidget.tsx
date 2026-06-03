@@ -101,9 +101,16 @@ const ChatWidget = () => {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Abrir chat"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg gold-glow flex items-center justify-center hover:scale-105 transition-transform"
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-primary text-primary-foreground shadow-lg gold-glow flex items-center justify-center hover:scale-105 transition-transform w-14 h-14 md:w-auto md:h-auto md:px-5 md:py-3 md:gap-2"
       >
-        {open ? <X size={22} /> : <MessageCircle size={22} />}
+        {open ? (
+          <X size={22} />
+        ) : (
+          <>
+            <MessageCircle size={22} />
+            <span className="hidden md:inline text-sm font-medium whitespace-nowrap">Fale com a assistente</span>
+          </>
+        )}
       </button>
 
       {open && (
