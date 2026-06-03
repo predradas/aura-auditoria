@@ -33,9 +33,9 @@ const Index = () => {
   ];
 
   const team = [
-    { name: "Pedro Luca", role: "Sócio-fundador · CRC-BA 123456/O-7", bio: "Auditor independente à frente da AURA, com atuação em companhias abertas, fundos de investimento e empresas de médio e grande porte em todo o Brasil." },
-    { name: "Marcos Andrade", role: "Sócio · Compliance & Riscos", bio: "Especialista em programas de integridade, LGPD e governança corporativa para empresas de médio e grande porte." },
-    { name: "Juliana Ribeiro", role: "Diretora Técnica", bio: "Mestre em Controladoria, conduz auditorias em demonstrações financeiras sob padrões IFRS e USGAAP." },
+    { name: "Pedro Luca", role: "Sócio-fundador · CRC-BA 123456/O-7", bio: "Auditor independente à frente da AURA, com atuação em companhias abertas, fundos de investimento e empresas de médio e grande porte em todo o Brasil.", linkedin: "https://www.linkedin.com/in/pedrolucarp" },
+    { name: "Marcos Andrade", role: "Sócio · Compliance & Riscos", bio: "Especialista em programas de integridade, LGPD e governança corporativa para empresas de médio e grande porte.", linkedin: "#" },
+    { name: "Juliana Ribeiro", role: "Diretora Técnica", bio: "Mestre em Controladoria, conduz auditorias em demonstrações financeiras sob padrões IFRS e USGAAP.", linkedin: "#" },
   ];
 
   const faqs = [
@@ -246,7 +246,7 @@ const Index = () => {
                 <h3 className="text-lg font-semibold text-foreground" style={{ fontFamily: "'Roboto Condensed', sans-serif" }}>{m.name}</h3>
                 <p className="text-xs text-primary uppercase tracking-wider mt-1 mb-3">{m.role}</p>
                 <p className="text-sm text-foreground/70 leading-relaxed">{m.bio}</p>
-                <a href="#" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary mt-4 transition-colors">
+                <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary mt-4 transition-colors">
                   <Linkedin size={14} /> LinkedIn
                 </a>
               </div>
