@@ -33,7 +33,7 @@ const Index = () => {
   ];
 
   const team = [
-    { name: "Dra. Helena Castro", role: "Sócia-fundadora · CRC-SP", bio: "Auditora independente com 20 anos de experiência em companhias abertas e fundos de investimento." },
+    { name: "Pedro Luca", role: "Sócio-fundador · CRC-BA 123456/O-7", bio: "Auditor independente à frente da AURA, com atuação em companhias abertas, fundos de investimento e empresas de médio e grande porte em todo o Brasil." },
     { name: "Marcos Andrade", role: "Sócio · Compliance & Riscos", bio: "Especialista em programas de integridade, LGPD e governança corporativa para empresas de médio e grande porte." },
     { name: "Juliana Ribeiro", role: "Diretora Técnica", bio: "Mestre em Controladoria, conduz auditorias em demonstrações financeiras sob padrões IFRS e USGAAP." },
   ];
@@ -42,7 +42,7 @@ const Index = () => {
     { q: "Qual a diferença entre auditoria independente e auditoria interna?", a: "A auditoria independente é executada por uma empresa externa e resulta em um parecer público sobre as demonstrações financeiras. A auditoria interna é um processo contínuo, focado em avaliar controles e mitigar riscos operacionais." },
     { q: "Minha empresa precisa de auditoria obrigatória?", a: "Companhias abertas, sociedades de grande porte (faturamento acima de R$ 300 milhões), instituições financeiras e algumas entidades reguladas têm auditoria obrigatória. Avaliamos seu caso sem custo." },
     { q: "Como é definido o investimento?", a: "Cada proposta é personalizada conforme porte, complexidade e escopo. Após uma reunião de diagnóstico, enviamos um orçamento detalhado e transparente." },
-    { q: "Vocês atendem fora do estado de São Paulo?", a: "Sim. Atendemos clientes em todo o território nacional, com modelo híbrido (presencial e remoto) e equipes locais quando necessário." },
+    { q: "Vocês atendem fora do estado da Bahia?", a: "Sim. Com sede em Salvador, atendemos clientes em todo o território nacional, com modelo híbrido (presencial e remoto) e equipes locais quando necessário." },
     { q: "Como é garantida a confidencialidade?", a: "Todos os profissionais assinam termos de sigilo, seguimos normas profissionais do CFC e adotamos controles técnicos rigorosos de segurança da informação." },
   ];
 
@@ -318,11 +318,11 @@ const Index = () => {
               </li>
               <li className="flex items-start gap-3 text-foreground/80">
                 <Phone className="w-5 h-5 text-primary mt-0.5" />
-                <span>+55 (11) 4000-0000</span>
+                <a href="tel:+5571940028922" className="hover:text-primary transition-colors">+55 (71) 94002-8922</a>
               </li>
               <li className="flex items-start gap-3 text-foreground/80">
                 <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                <span>Av. Paulista, 1000 — Bela Vista, São Paulo · SP</span>
+                <span>Salvador · BA</span>
               </li>
             </ul>
             <div className="mt-8 p-5 glass rounded-xl">
@@ -359,8 +359,8 @@ const Index = () => {
             <p className="text-foreground font-semibold mb-3 uppercase text-xs tracking-wider">Contato</p>
             <ul className="space-y-2 text-muted-foreground">
               <li>contato@auraauditoria.com.br</li>
-              <li>+55 (11) 4000-0000</li>
-              <li>São Paulo · SP</li>
+              <li>+55 (71) 94002-8922</li>
+              <li>Salvador · BA</li>
             </ul>
           </div>
         </div>
