@@ -71,9 +71,14 @@ const Index = () => {
             <a href="#faq" className="hover:text-primary transition-colors">FAQ</a>
             <a href="#contato" className="hover:text-primary transition-colors">Contato</a>
           </div>
-          <a href="#contato" className="hidden md:inline-flex px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wide hover:opacity-90 transition-opacity">
-            Fale conosco
-          </a>
+          <div className="hidden md:flex items-center gap-2">
+            <a href="/restrito" className="inline-flex px-4 py-2 rounded-lg border border-primary/40 text-primary text-xs font-semibold uppercase tracking-wide hover:bg-primary/10 transition-colors">
+              Restrito
+            </a>
+            <a href="#contato" className="inline-flex px-4 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wide hover:opacity-90 transition-opacity">
+              Fale conosco
+            </a>
+          </div>
         </div>
       </nav>
 
@@ -368,6 +373,7 @@ const Index = () => {
           <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground/70">
             <span>© 2026 AURA — Todos os direitos reservados</span>
             <span>Empresa fictícia criada para fins acadêmicos.</span>
+            <span className="font-mono text-primary/70">&lt;/&gt; by Ana</span>
           </div>
         </div>
       </footer>
