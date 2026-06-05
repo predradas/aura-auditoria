@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import ChatWidget from "@/components/ChatWidget";
 import ContactForm from "@/components/ContactForm";
+import SiteFooter from "@/components/SiteFooter";
 
 const Index = () => {
   const services = [
