@@ -2,11 +2,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Lock, Mail, LogOut, FileText, MessageCircle, ArrowLeft,
-  Paperclip, Send, Download, User,
+  Paperclip, Send, Download, User, CalendarClock,
 } from "lucide-react";
 import logoAura from "@/assets/logo-aura.png";
 import SiteFooter from "@/components/SiteFooter";
-import { loadRequests, sortByDateDesc, statusMeta, type Request, type Status } from "@/lib/auraConnectStore";
+import {
+  loadRequests, sortByDateDesc, statusMeta,
+  loadChats, saveChats,
+  type Request, type Status, type ChatMsg,
+} from "@/lib/auraConnectStore";
+
+const COMPANY_ID = "totvs";
 
 const VALID_EMAIL = "contabilidade@totvs.com.br";
 const VALID_PASSWORD = "12345";
@@ -91,18 +97,13 @@ const Login = ({ onSuccess }: { onSuccess: () => void }) => {
   );
 };
 
-type ChatMsg = { from: "aura" | "cliente"; author: string; text: string; time: string };
-
 const Connect = ({ onLogout }: { onLogout: () => void }) => {
   const [tab, setTab] = useState<"docs" | "chat">("docs");
-  const requests = sortByDateDesc(loadRequests());
+  const requests = sortByDateDesc(loadRequests().filter((r) => r.companyId === COMPANY_ID));
   const [selected, setSelected] = useState<string | null>(requests[0]?.id ?? null);
   const [chatInput, setChatInput] = useState("");
-  const [chat, setChat] = useState<ChatMsg[]>([
-    { from: "aura", author: "Juliana Ribeiro", text: "Olá! Sou a Juliana, auditora responsável pelo trabalho na TOTVS. Estamos por aqui para qualquer dúvida sobre as solicitações.", time: "28/05 10:15" },
-    { from: "cliente", author: "Contabilidade TOTVS", text: "Olá Juliana! Vamos organizar os documentos solicitados e retornamos esta semana.", time: "28/05 14:02" },
-    { from: "aura", author: "Juliana Ribeiro", text: "Perfeito, obrigada! Qualquer ajuda na separação dos extratos OFX é só avisar.", time: "28/05 14:10" },
-  ]);
+  const [chats, setChats] = useState<Record<string, ChatMsg[]>>(() => loadChats());
+  const chat = chats[COMPANY_ID] ?? [];
 
   const current = requests.find((r) => r.id === selected) ?? null;
 
@@ -112,7 +113,9 @@ const Connect = ({ onLogout }: { onLogout: () => void }) => {
     if (!t) return;
     const now = new Date();
     const time = `${String(now.getDate()).padStart(2, "0")}/${String(now.getMonth() + 1).padStart(2, "0")} ${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-    setChat((c) => [...c, { from: "cliente", author: "Contabilidade TOTVS", text: t, time }]);
+    const next = { ...chats, [COMPANY_ID]: [...chat, { from: "cliente" as const, author: "Contabilidade TOTVS", text: t, time }] };
+    setChats(next);
+    saveChats(next);
     setChatInput("");
   };
 
@@ -203,6 +206,11 @@ const Connect = ({ onLogout }: { onLogout: () => void }) => {
                             <p className="text-[11px] text-muted-foreground mt-0.5">
                               {new Date(r.date).toLocaleDateString("pt-BR")} · solicitado por {r.requestedBy}
                             </p>
+                            {r.dueDate && (
+                              <p className="text-[11px] text-amber-300/90 mt-0.5 inline-flex items-center gap-1">
+                                <CalendarClock size={11} /> prazo: {new Date(r.dueDate).toLocaleDateString("pt-BR")}
+                              </p>
+                            )}
                           </div>
                           <StatusPill status={r.status} />
                         </div>
