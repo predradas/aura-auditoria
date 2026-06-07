@@ -1,15 +1,17 @@
+import { useState } from "react";
 import logoAura from "@/assets/logo-aura.png";
 import {
   Scale, Eye, Heart, ChevronDown,
   ShieldCheck, FileSearch, Calculator, Gavel, Briefcase, TrendingUp,
   Mail, Phone, MapPin, Linkedin, CheckCircle2, Users, Award, Building2,
-  ClipboardList, Search, BarChart3, Handshake,
+  ClipboardList, Search, BarChart3, Handshake, Menu, X,
 } from "lucide-react";
 import ChatWidget from "@/components/ChatWidget";
 import ContactForm from "@/components/ContactForm";
 import SiteFooter from "@/components/SiteFooter";
 
 const Index = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
   const services = [
     { icon: FileSearch, title: "Auditoria Independente", desc: "Análise das demonstrações financeiras com emissão de parecer conforme normas brasileiras e internacionais (NBC TA / ISA)." },
     { icon: ShieldCheck, title: "Auditoria Interna", desc: "Avaliação contínua de controles internos, processos e conformidade para fortalecer a governança da sua organização." },
@@ -57,7 +59,7 @@ const Index = () => {
 
       {/* Nav */}
       <nav className="sticky top-0 z-40 glass border-b border-border/50 backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-3">
           <a href="#top" className="flex items-center gap-3">
             <img src={logoAura} alt="Aura Logo" className="w-10 h-10 object-contain" />
             <span className="text-xl font-semibold gold-gradient-text" style={{ fontFamily: "'Playfair Display', serif" }}>
@@ -80,7 +82,45 @@ const Index = () => {
               Fale conosco
             </a>
           </div>
+          <button
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Abrir menu"
+            aria-expanded={menuOpen}
+            className="md:hidden p-2 rounded-lg border border-border text-foreground/80 hover:text-primary hover:border-primary/40 transition-colors"
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
+        {menuOpen && (
+          <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
+            <div className="px-4 py-4 flex flex-col gap-1 text-sm">
+              {[
+                { h: "#servicos", l: "Serviços" },
+                { h: "#sobre", l: "Sobre" },
+                { h: "#processo", l: "Processo" },
+                { h: "#equipe", l: "Equipe" },
+                { h: "#faq", l: "FAQ" },
+                { h: "#contato", l: "Contato" },
+              ].map((i) => (
+                <a key={i.h} href={i.h} onClick={() => setMenuOpen(false)}
+                  className="py-2.5 px-3 rounded-lg text-foreground/80 hover:bg-primary/10 hover:text-primary transition-colors">
+                  {i.l}
+                </a>
+              ))}
+              <div className="flex items-center gap-2 pt-3 mt-2 border-t border-border/40">
+                <a href="/restrito" onClick={() => setMenuOpen(false)}
+                  className="flex-1 text-center px-4 py-2.5 rounded-lg border border-primary/40 text-primary text-xs font-semibold uppercase tracking-wide hover:bg-primary/10 transition-colors">
+                  Restrito
+                </a>
+                <a href="#contato" onClick={() => setMenuOpen(false)}
+                  className="flex-1 text-center px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wide hover:opacity-90 transition-opacity">
+                  Fale conosco
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero */}
