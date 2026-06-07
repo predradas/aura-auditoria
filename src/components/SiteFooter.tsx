@@ -4,12 +4,28 @@ import { Code2 } from "lucide-react";
 type Props = { variant?: "site" | "connect" | "admin" };
 
 const SiteFooter = ({ variant = "site" }: Props) => {
-  const label =
-    variant === "connect"
-      ? "AURA Connect — Ambiente restrito do cliente"
-      : variant === "admin"
-      ? "AURA Connect · Painel administrativo"
-      : "Auditoria & Consultoria. Transparência, integridade e excelência a serviço do seu negócio.";
+  const isInternal = variant === "connect" || variant === "admin";
+
+  if (isInternal) {
+    return (
+      <footer className="relative z-10 border-t border-border/50 bg-background mt-10">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left text-xs text-muted-foreground/70">
+          <span>© 2026 AURA — Todos os direitos reservados</span>
+          <span>Empresa fictícia criada para fins acadêmicos.</span>
+          <a
+            href="#"
+            className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/60 transition-all"
+            aria-label="by Ana"
+          >
+            <Code2 size={12} className="text-primary group-hover:rotate-12 transition-transform" />
+            <span className="font-mono text-[11px] tracking-wider gold-gradient-text font-semibold">
+              &lt;/&gt; by Ana
+            </span>
+          </a>
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <footer className="relative z-10 border-t border-border/50 bg-background mt-10">
@@ -24,7 +40,9 @@ const SiteFooter = ({ variant = "site" }: Props) => {
               AURA
             </span>
           </div>
-          <p className="text-muted-foreground max-w-sm leading-relaxed">{label}</p>
+          <p className="text-muted-foreground max-w-sm leading-relaxed">
+            Auditoria &amp; Consultoria. Transparência, integridade e excelência a serviço do seu negócio.
+          </p>
         </div>
         <div>
           <p className="text-foreground font-semibold mb-3 uppercase text-xs tracking-wider">Navegação</p>
@@ -45,19 +63,9 @@ const SiteFooter = ({ variant = "site" }: Props) => {
         </div>
       </div>
       <div className="border-t border-border/40">
-        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-muted-foreground/70">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground/70 text-center md:text-left">
           <span>© 2026 AURA — Todos os direitos reservados</span>
           <span>Empresa fictícia criada para fins acadêmicos.</span>
-          <a
-            href="#"
-            className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/60 transition-all"
-            aria-label="Crafted by Ana"
-          >
-            <Code2 size={12} className="text-primary group-hover:rotate-12 transition-transform" />
-            <span className="font-mono text-[11px] tracking-wider gold-gradient-text font-semibold">
-              crafted by Ana
-            </span>
-          </a>
         </div>
       </div>
     </footer>

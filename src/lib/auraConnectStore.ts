@@ -13,6 +13,7 @@ export type Request = {
   id: string;
   title: string;
   date: string; // ISO yyyy-mm-dd
+  dueDate?: string; // ISO yyyy-mm-dd (opcional)
   status: Status;
   ownerEmail: string; // auditor responsável (Aura)
   requestedBy: string; // display name
@@ -20,6 +21,7 @@ export type Request = {
   itemsRequested: string[];
   filesSent: DocFile[];
   comments: Comment[];
+  companyId: string;
 };
 
 export type Auditor = {
@@ -29,19 +31,41 @@ export type Auditor = {
   role: "master" | "auditor";
 };
 
+export type Company = {
+  id: string;
+  name: string;
+  contactEmail: string;
+};
+
+export type ChatMsg = {
+  from: "aura" | "cliente";
+  author: string;
+  text: string;
+  time: string;
+};
+
 export const AUDITORS: Auditor[] = [
   { email: "pedro@auraauditoria.com.br", name: "Pedro Luca", password: "12345", role: "master" },
   { email: "juliana@auraauditoria.com.br", name: "Juliana Ribeiro", password: "12345", role: "auditor" },
   { email: "marcos@auraauditoria.com.br", name: "Marcos Andrade", password: "12345", role: "auditor" },
 ];
 
-export const STORAGE_KEY = "aura_requests_v1";
+export const STORAGE_KEY = "aura_requests_v2";
+export const COMPANIES_KEY = "aura_companies_v1";
+export const CHAT_KEY = "aura_chats_v1";
+
+const DEFAULT_COMPANIES: Company[] = [
+  { id: "totvs", name: "TOTVS S.A.", contactEmail: "contabilidade@totvs.com.br" },
+  { id: "outra", name: "Outra Empresa Ltda.", contactEmail: "contato@outraempresa.com.br" },
+];
 
 const DEFAULT_REQUESTS: Request[] = [
   {
     id: "r3",
+    companyId: "totvs",
     title: "Documentação para conta clientes",
     date: "2026-05-28",
+    dueDate: "2026-06-30",
     status: "pendente",
     ownerEmail: "juliana@auraauditoria.com.br",
     requestedBy: "Juliana Ribeiro",
@@ -65,8 +89,10 @@ const DEFAULT_REQUESTS: Request[] = [
   },
   {
     id: "r2",
+    companyId: "totvs",
     title: "Demonstrações financeiras",
     date: "2026-03-10",
+    dueDate: "2026-04-10",
     status: "pendente",
     ownerEmail: "juliana@auraauditoria.com.br",
     requestedBy: "Juliana Ribeiro",
@@ -90,6 +116,7 @@ const DEFAULT_REQUESTS: Request[] = [
   },
   {
     id: "r1",
+    companyId: "totvs",
     title: "Carta-proposta de auditoria",
     date: "2026-01-12",
     status: "concluido",
@@ -117,6 +144,15 @@ const DEFAULT_REQUESTS: Request[] = [
     ],
   },
 ];
+
+const DEFAULT_CHATS: Record<string, ChatMsg[]> = {
+  totvs: [
+    { from: "aura", author: "Juliana Ribeiro", text: "Olá! Sou a Juliana, auditora responsável pelo trabalho na TOTVS. Estamos por aqui para qualquer dúvida sobre as solicitações.", time: "28/05 10:15" },
+    { from: "cliente", author: "Contabilidade TOTVS", text: "Olá Juliana! Vamos organizar os documentos solicitados e retornamos esta semana.", time: "28/05 14:02" },
+    { from: "aura", author: "Juliana Ribeiro", text: "Perfeito, obrigada! Qualquer ajuda na separação dos extratos OFX é só avisar.", time: "28/05 14:10" },
+  ],
+  outra: [],
+};
 
 export const statusMeta: Record<Status, { label: string; color: string; ring: string }> = {
   concluido: { label: "Concluído", color: "bg-emerald-500", ring: "ring-emerald-500/30" },
@@ -146,4 +182,41 @@ export function saveRequests(reqs: Request[]) {
 
 export function sortByDateDesc(reqs: Request[]) {
   return [...reqs].sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export function loadCompanies(): Company[] {
+  if (typeof window === "undefined") return DEFAULT_COMPANIES;
+  try {
+    const raw = localStorage.getItem(COMPANIES_KEY);
+    if (!raw) {
+      localStorage.setItem(COMPANIES_KEY, JSON.stringify(DEFAULT_COMPANIES));
+      return DEFAULT_COMPANIES;
+    }
+    const parsed = JSON.parse(raw) as Company[];
+    return Array.isArray(parsed) && parsed.length ? parsed : DEFAULT_COMPANIES;
+  } catch {
+    return DEFAULT_COMPANIES;
+  }
+}
+
+export function saveCompanies(cs: Company[]) {
+  localStorage.setItem(COMPANIES_KEY, JSON.stringify(cs));
+}
+
+export function loadChats(): Record<string, ChatMsg[]> {
+  if (typeof window === "undefined") return DEFAULT_CHATS;
+  try {
+    const raw = localStorage.getItem(CHAT_KEY);
+    if (!raw) {
+      localStorage.setItem(CHAT_KEY, JSON.stringify(DEFAULT_CHATS));
+      return DEFAULT_CHATS;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return DEFAULT_CHATS;
+  }
+}
+
+export function saveChats(c: Record<string, ChatMsg[]>) {
+  localStorage.setItem(CHAT_KEY, JSON.stringify(c));
 }
