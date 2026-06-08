@@ -359,7 +359,7 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div key={editing.mode === "edit" ? editing.id : "new"} className="space-y-4">
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-semibold uppercase tracking-wider text-foreground/80">
                     {editing.mode === "create" ? "Nova solicitação" : "Editar solicitação"}
@@ -387,8 +387,23 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
                   </Field>
                 </div>
                 <Field label="Prazo (opcional)">
-                  <input type="date" value={draft.dueDate ?? ""} onChange={(e) => setDraft({ ...draft, dueDate: e.target.value })}
-                    className="w-full bg-secondary/60 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="date"
+                      value={draft.dueDate ?? ""}
+                      onChange={(e) => setDraft({ ...draft, dueDate: e.target.value || undefined })}
+                      className="flex-1 bg-secondary/60 border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary"
+                    />
+                    {draft.dueDate && (
+                      <button
+                        type="button"
+                        onClick={() => setDraft({ ...draft, dueDate: undefined })}
+                        className="px-2 py-2 rounded-lg border border-border text-xs text-muted-foreground hover:text-red-400 hover:border-red-400/40"
+                      >
+                        limpar
+                      </button>
+                    )}
+                  </div>
                 </Field>
                 <Field label="Responsável (Aura)">
                   <select
