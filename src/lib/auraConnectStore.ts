@@ -50,7 +50,7 @@ export const AUDITORS: Auditor[] = [
   { email: "marcos@auraauditoria.com.br", name: "Marcos Andrade", password: "12345", role: "auditor" },
 ];
 
-export const STORAGE_KEY = "aura_requests_v2";
+export const STORAGE_KEY = "aura_requests_v3";
 export const COMPANIES_KEY = "aura_companies_v1";
 export const CHAT_KEY = "aura_chats_v1";
 
