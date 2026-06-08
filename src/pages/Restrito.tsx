@@ -55,8 +55,8 @@ const Login = ({ onSuccess }: { onSuccess: () => void }) => {
         </a>
         <div className="glass rounded-2xl p-8 border border-primary/20">
           <div className="flex flex-col items-center text-center mb-6">
-            <div className="w-16 h-16 rounded-full bg-primary/15 flex items-center justify-center mb-4">
-              <img src={logoAura} alt="AURA" className="w-10 h-10 object-contain" />
+            <div className="w-20 h-20 rounded-full bg-primary/15 flex items-center justify-center mb-4 overflow-hidden">
+              <img src={logoAura} alt="AURA" className="w-full h-full object-contain p-1" />
             </div>
             <h1 className="text-2xl font-semibold gold-gradient-text" style={{ fontFamily: "'Playfair Display', serif" }}>
               AURA Connect
