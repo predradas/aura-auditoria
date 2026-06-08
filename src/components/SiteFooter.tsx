@@ -14,11 +14,11 @@ const SiteFooter = ({ variant = "site" }: Props) => {
           <span>Empresa fictícia criada para fins acadêmicos.</span>
           <a
             href="#"
-            className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/60 transition-all"
+            className="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/60 transition-all"
             aria-label="by Ana"
           >
-            <Code2 size={16} className="text-primary group-hover:rotate-12 transition-transform" />
-            <span className="font-mono text-sm leading-none tracking-wider gold-gradient-text font-semibold">
+            <Code2 size={12} className="text-primary group-hover:rotate-12 transition-transform" />
+            <span className="font-mono text-[11px] leading-none tracking-wider gold-gradient-text font-semibold">
               by Ana
             </span>
           </a>
