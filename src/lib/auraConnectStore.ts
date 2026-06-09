@@ -184,6 +184,22 @@ export function sortByDateDesc(reqs: Request[]) {
   return [...reqs].sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
+// Formata uma data ISO "yyyy-mm-dd" como "dd/mm/yyyy" SEM passar por new Date()
+// (evita o bug de timezone que jogava o dia para o anterior).
+export function formatISODateBR(iso?: string) {
+  if (!iso) return "";
+  const [y, m, d] = iso.split("-");
+  if (!y || !m || !d) return iso;
+  return `${d}/${m}/${y}`;
+}
+
+// Carimbo "dd/mm/yyyy HH:MM" para comentários
+export function nowStampBR() {
+  const n = new Date();
+  const p = (v: number) => String(v).padStart(2, "0");
+  return `${p(n.getDate())}/${p(n.getMonth() + 1)}/${n.getFullYear()} ${p(n.getHours())}:${p(n.getMinutes())}`;
+}
+
 export function loadCompanies(): Company[] {
   if (typeof window === "undefined") return DEFAULT_COMPANIES;
   try {
