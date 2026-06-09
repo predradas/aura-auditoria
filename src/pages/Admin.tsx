@@ -2,13 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Lock, Mail, LogOut, ArrowLeft, Plus, Pencil, Trash2, ShieldCheck, X, Save,
-  User as UserIcon, Building2, MessageCircle, FileText, Send, CalendarClock,
+  User as UserIcon, Building2, MessageCircle, FileText, Send, CalendarClock, MessageSquare,
 } from "lucide-react";
 import logoAura from "@/assets/logo-aura.png";
 import SiteFooter from "@/components/SiteFooter";
 import {
   AUDITORS, loadRequests, saveRequests, sortByDateDesc, statusMeta,
-  loadCompanies, saveCompanies, loadChats, saveChats,
+  loadCompanies, saveCompanies, loadChats, saveChats, formatISODateBR, nowStampBR,
   type Auditor, type Request, type Status, type Company, type ChatMsg,
 } from "@/lib/auraConnectStore";
 
@@ -108,6 +108,8 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
   const [chatInput, setChatInput] = useState("");
   const [showNewCompany, setShowNewCompany] = useState(false);
   const [newCompany, setNewCompany] = useState<Company>({ id: "", name: "", contactEmail: "" });
+  const [commentingId, setCommentingId] = useState<string | null>(null);
+  const [commentInput, setCommentInput] = useState("");
 
   const activeCompany = companies.find((c) => c.id === activeCompanyId) ?? companies[0];
 
@@ -160,6 +162,19 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
   const remove = (id: string) => {
     if (!confirm("Excluir esta solicitação? Esta ação não pode ser desfeita.")) return;
     persist(requests.filter((r) => r.id !== id));
+  };
+
+  const addComment = (id: string) => {
+    const t = commentInput.trim();
+    if (!t) return;
+    const next = requests.map((r) =>
+      r.id === id
+        ? { ...r, comments: [...r.comments, { author: auditor.name, from: "aura" as const, date: nowStampBR(), text: t }] }
+        : r,
+    );
+    persist(next);
+    setCommentInput("");
+    setCommentingId(null);
   };
 
   const sendChat = (e: React.FormEvent) => {
@@ -314,11 +329,11 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
                           <p className="text-sm font-semibold">{r.title}</p>
                         </div>
                         <p className="text-[11px] text-muted-foreground mt-1">
-                          {new Date(r.date).toLocaleDateString("pt-BR")} · {s.label} · responsável: <span className="text-primary">{ownerName}</span>
+                          {formatISODateBR(r.date)} · {s.label} · responsável: <span className="text-primary">{ownerName}</span>
                         </p>
                         {r.dueDate && (
                           <p className="text-[11px] text-amber-300/90 mt-1 inline-flex items-center gap-1">
-                            <CalendarClock size={11} /> prazo: {new Date(r.dueDate).toLocaleDateString("pt-BR")}
+                            <CalendarClock size={11} /> prazo: {formatISODateBR(r.dueDate)}
                           </p>
                         )}
                         {r.description && (
@@ -326,6 +341,19 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
                         )}
                       </div>
                       <div className="flex items-center gap-1 shrink-0">
+                        <button
+                          onClick={() => { setCommentingId(commentingId === r.id ? null : r.id); setCommentInput(""); }}
+                          disabled={!mine}
+                          title={mine ? "Comentar" : "Sem permissão"}
+                          className="p-2 rounded-lg border border-border text-muted-foreground hover:text-primary hover:border-primary/40 disabled:opacity-30 disabled:cursor-not-allowed transition-colors relative"
+                        >
+                          <MessageSquare size={14} />
+                          {r.comments.length > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                              {r.comments.length}
+                            </span>
+                          )}
+                        </button>
                         <button
                           onClick={() => startEdit(r)}
                           disabled={!mine}
@@ -344,6 +372,43 @@ const Dashboard = ({ auditor, onLogout }: { auditor: Auditor; onLogout: () => vo
                         </button>
                       </div>
                     </div>
+                    {commentingId === r.id && (
+                      <div className="mt-3 pt-3 border-t border-border/60 space-y-2">
+                        {r.comments.length > 0 && (
+                          <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
+                            {r.comments.map((c, i) => (
+                              <div key={i} className={`flex ${c.from === "aura" ? "justify-end" : "justify-start"}`}>
+                                <div className={`max-w-[85%] rounded-xl px-3 py-2 text-xs ${
+                                  c.from === "aura" ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground"
+                                }`}>
+                                  <p className="text-[10px] opacity-80 mb-0.5">{c.author} · {c.date}</p>
+                                  <p className="leading-relaxed">{c.text}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <form
+                          onSubmit={(e) => { e.preventDefault(); addComment(r.id); }}
+                          className="flex gap-2"
+                        >
+                          <input
+                            value={commentInput}
+                            onChange={(e) => setCommentInput(e.target.value)}
+                            autoFocus
+                            placeholder={`Comentar como ${auditor.name}…`}
+                            className="flex-1 bg-secondary/60 border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-primary"
+                          />
+                          <button
+                            type="submit"
+                            disabled={!commentInput.trim()}
+                            className="px-3 rounded-lg bg-primary text-primary-foreground text-xs font-semibold disabled:opacity-50 inline-flex items-center gap-1"
+                          >
+                            <Send size={12} /> Enviar
+                          </button>
+                        </form>
+                      </div>
+                    )}
                   </li>
                 );
               })}
