@@ -1,5 +1,4 @@
 import logoAura from "@/assets/logo-aura.png";
-import { Code2 } from "lucide-react";
 
 type Props = { variant?: "site" | "connect" | "admin" };
 
@@ -12,16 +11,6 @@ const SiteFooter = ({ variant = "site" }: Props) => {
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left text-xs text-muted-foreground/70">
           <span>© 2026 AURA — Todos os direitos reservados</span>
           <span>Empresa fictícia criada para fins acadêmicos.</span>
-          <a
-            href="#"
-            className="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/60 transition-all"
-            aria-label="by Ana"
-          >
-            <Code2 size={12} className="text-primary group-hover:rotate-12 transition-transform" />
-            <span className="font-mono text-[11px] leading-none tracking-wider gold-gradient-text font-semibold">
-              by Ana
-            </span>
-          </a>
         </div>
       </footer>
     );
