@@ -8,7 +8,7 @@ import logoAura from "@/assets/logo-aura.png";
 import SiteFooter from "@/components/SiteFooter";
 import {
   loadRequests, sortByDateDesc, statusMeta,
-  loadChats, saveChats,
+  loadChats, saveChats, saveRequests, formatISODateBR, nowStampBR,
   type Request, type Status, type ChatMsg,
 } from "@/lib/auraConnectStore";
 
@@ -99,13 +99,29 @@ const Login = ({ onSuccess }: { onSuccess: () => void }) => {
 
 const Connect = ({ onLogout }: { onLogout: () => void }) => {
   const [tab, setTab] = useState<"docs" | "chat">("docs");
-  const requests = sortByDateDesc(loadRequests().filter((r) => r.companyId === COMPANY_ID));
+  const [allRequests, setAllRequests] = useState<Request[]>(() => loadRequests());
+  const requests = sortByDateDesc(allRequests.filter((r) => r.companyId === COMPANY_ID));
   const [selected, setSelected] = useState<string | null>(requests[0]?.id ?? null);
   const [chatInput, setChatInput] = useState("");
+  const [commentInput, setCommentInput] = useState("");
   const [chats, setChats] = useState<Record<string, ChatMsg[]>>(() => loadChats());
   const chat = chats[COMPANY_ID] ?? [];
 
   const current = requests.find((r) => r.id === selected) ?? null;
+
+  const sendComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    const t = commentInput.trim();
+    if (!t || !current) return;
+    const next = allRequests.map((r) =>
+      r.id === current.id
+        ? { ...r, comments: [...r.comments, { author: "Contabilidade TOTVS", from: "cliente" as const, date: nowStampBR(), text: t }] }
+        : r,
+    );
+    setAllRequests(next);
+    saveRequests(next);
+    setCommentInput("");
+  };
 
   const sendChat = (e: React.FormEvent) => {
     e.preventDefault();
@@ -204,11 +220,11 @@ const Connect = ({ onLogout }: { onLogout: () => void }) => {
                           <div>
                             <p className="text-sm font-semibold text-foreground">{r.title}</p>
                             <p className="text-[11px] text-muted-foreground mt-0.5">
-                              {new Date(r.date).toLocaleDateString("pt-BR")} · solicitado por {r.requestedBy}
+                              {formatISODateBR(r.date)} · solicitado por {r.requestedBy}
                             </p>
                             {r.dueDate && (
                               <p className="text-[11px] text-amber-300/90 mt-0.5 inline-flex items-center gap-1">
-                                <CalendarClock size={11} /> prazo: {new Date(r.dueDate).toLocaleDateString("pt-BR")}
+                                <CalendarClock size={11} /> prazo: {formatISODateBR(r.dueDate)}
                               </p>
                             )}
                           </div>
@@ -235,7 +251,7 @@ const Connect = ({ onLogout }: { onLogout: () => void }) => {
                         {current.title}
                       </h2>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Solicitado em {new Date(current.date).toLocaleDateString("pt-BR")} por <span className="text-primary">{current.requestedBy}</span> (AURA)
+                        Solicitado em {formatISODateBR(current.date)} por <span className="text-primary">{current.requestedBy}</span> (AURA)
                       </p>
                     </div>
                     <StatusPill status={current.status} />
@@ -305,6 +321,21 @@ const Connect = ({ onLogout }: { onLogout: () => void }) => {
                         </div>
                       ))}
                     </div>
+                    <form onSubmit={sendComment} className="mt-3 flex gap-2">
+                      <input
+                        value={commentInput}
+                        onChange={(e) => setCommentInput(e.target.value)}
+                        placeholder="Escreva um comentário…"
+                        className="flex-1 bg-secondary/60 border border-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-primary"
+                      />
+                      <button
+                        type="submit"
+                        disabled={!commentInput.trim()}
+                        className="w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center disabled:opacity-50"
+                      >
+                        <Send size={16} />
+                      </button>
+                    </form>
                   </div>
                 </div>
               )}

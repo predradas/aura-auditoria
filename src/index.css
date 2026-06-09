@@ -6,6 +6,7 @@
 
 @layer base {
   :root {
+    color-scheme: dark;
     --background: 40 20% 8%;
     --foreground: 45 60% 90%;
 
@@ -98,4 +99,37 @@
     linear-gradient(hsla(43, 80%, 55%, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, hsla(43, 80%, 55%, 0.02) 1px, transparent 1px);
   background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+}
+
+/* Scrollbar tematizada (Chrome / Edge / Safari / Samsung Internet via WebKit) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(40 15% 10%);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, hsl(43 80% 55% / 0.85), hsl(38 70% 35% / 0.85));
+  border-radius: 8px;
+  border: 2px solid hsl(40 15% 10%);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, hsl(45 80% 60%), hsl(38 75% 45%));
+}
+::-webkit-scrollbar-corner {
+  background: hsl(40 15% 10%);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(43 80% 55% / 0.85) hsl(40 15% 10%);
+}
+
+/* Samsung Internet / WebKit antigos: força o fundo escuro e previne
+   modos de alto contraste/dark mode automático que distorcem o tema */
+html {
+  background: hsl(40 20% 8%);
+  -webkit-text-size-adjust: 100%;
 }
